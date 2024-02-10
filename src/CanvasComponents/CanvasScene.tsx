@@ -2,11 +2,15 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
 import Lights from './Lights';
 import CameraRig from './CameraRig';
-
+// import { Leva } from 'leva';
 
 const CanvasScene = () => {
 	return (
-		<Canvas shadows={true} camera={{ position: [0, 2, 7.2], fov: 45 }}>
+		<Canvas
+			className='canvas'
+			shadows={true}
+			camera={{ position: [0, 2, 7.2], fov: 45 }}
+		>
 			<ambientLight intensity={1} />
 			<Environment preset='warehouse' blur={0} />
 			<ContactShadows
@@ -18,8 +22,7 @@ const CanvasScene = () => {
 			/>
 
 			<CameraRig>
-				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}>
-				</Float>
+				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}></Float>
 			</CameraRig>
 
 			<Lights />

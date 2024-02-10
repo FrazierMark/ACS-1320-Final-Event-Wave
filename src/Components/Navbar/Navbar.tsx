@@ -2,11 +2,13 @@ import './Navbar.css';
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { a } from '@react-spring/web';
 import { useGSAP } from '@gsap/react';
 import { useLenis } from '@studio-freight/react-lenis';
 
 const Navbar = () => {
+	gsap.registerPlugin(ScrollTrigger);
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const navRef = useRef<HTMLDivElement>(null);
 	const progressRef = useRef<HTMLDivElement>(null);
@@ -69,11 +71,9 @@ const Navbar = () => {
 	return (
 		<div ref={navRef} id='nav'>
 			<section className='socials'>
-				<Link to="/">
-        <a.h1 className="title" >
-          EVENT WAVE
-        </a.h1>
-      </Link>
+				<Link to='/'>
+					<h1 className='title'>EVENT WAVE</h1>
+				</Link>
 			</section>
 
 			<div className='progress'>

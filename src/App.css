@@ -1,44 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
+
 * {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  display: flex;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	width: 100vw;
+	height: 100vh;
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0id2hpdGUiLz48L3N2Zz4='),
+    auto;
   scroll-behavior: smooth;
   animation: fadeInAnimation ease 1.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-	box-sizing: border-box;
-  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0id2hpdGUiLz48L3N2Zz4='),
-    auto;
+  background-color: rgb(255, 245, 106);
 }
 
-.loading-screen {
-  position: fixed;
-  z-index: 100;
-  height: 100%;
-  width: 100%;
-  background: rgb(237, 248, 255);
-  display: grid;
-  place-content: center;
-  transition: transform 1s ease-in-out;
 
-  svg {
-    animation: growRing 1.5s ease-in-out infinite;
-  }
+#root div div canvas {
+	top: 0;
+	left: 0;
+	z-index: -2;
 }
 
-@keyframes growRing {
+a {
+  color: black;
+  text-decoration: none;
+}
+
+@keyframes fadeInAnimation {
   0% {
-    transform: scale(.7);
-  }
-  50% {
-    transform: scale(1);
+    opacity: 0;
   }
   100% {
-    transform: scale(.7);
+    opacity: 1;
   }
-}
-
-.hide-loader {
-  transform: translateY(-100%);
 }
 
 
@@ -69,53 +72,3 @@
   src: url('/font/GeistMono-Bold.otf') format('opentype');
   font-weight: 700; 
 } */
-
-a {
-  color: black;
-  text-decoration: none;
-}
-
-body {
-  margin: 0;
-  background: #fee672;
-  font-family: 'Geist', sans-serif;
-  height: 100vh;
-}
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  outline: none;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.mask {
-  overflow: hidden;
-}
-
-.layout-ws {
-  width: 100%;
-  box-sizing: border-box;
-  padding: clamp(16px, 5%, 100px);  /* Adjust for fluid side margins */
-}
-
-@media (min-width: 768px) {
-  main {
-    display: flex;
-
-    .right {
-      display: block;
-    }
-  }  
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
