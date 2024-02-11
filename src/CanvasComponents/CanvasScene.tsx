@@ -5,6 +5,7 @@ import CameraRig from './CameraRig';
 import Sphere from './Sphere';
 import { OrbitControls } from '@react-three/drei';
 import { Effects } from './Effects';
+import { Stars } from '@react-three/drei';
 // import { Leva } from 'leva';
 
 const CanvasScene = () => {
@@ -15,7 +16,7 @@ const CanvasScene = () => {
 			camera={{ position: [0, 2, 7.2], fov: 45 }}
 		>
 			<ambientLight intensity={1} />
-			<Environment preset='warehouse' blur={0} />
+			{/* <Environment preset='warehouse' blur={0} /> */}
 			<ContactShadows
 				position={[0, -0.8, 0]}
 				opacity={1}
@@ -29,6 +30,16 @@ const CanvasScene = () => {
 					<Sphere />
 				</Float>
 			</CameraRig>
+
+			<Stars
+				// ref={starRef}
+				radius={20}
+				depth={10}
+				count={200}
+				factor={2}
+				saturation={1}
+				speed={1}
+			/>
 
 			<Effects />
 			<OrbitControls />

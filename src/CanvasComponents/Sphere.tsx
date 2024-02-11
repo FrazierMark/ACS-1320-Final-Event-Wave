@@ -37,15 +37,15 @@ const Sphere = () => {
 		ior: { value: 1.0, min: 1, max: 5, step: 0.01 },
 		chromaticAberration: { value: 0.06, min: 0, max: 1 },
 		anisotropy: { value: 0.0, min: 0, max: 1, step: 0.01 },
-		distortion: { value: 0.00, min: 0, max: 1, step: 0.01 },
+		distortion: { value: 0.0, min: 0, max: 1, step: 0.01 },
 		distortionScale: { value: 1.0, min: 0.01, max: 1, step: 0.01 },
 		temporalDistortion: { value: 1.0, min: 0, max: 1, step: 0.01 },
 		clearcoat: { value: 1, min: 0, max: 1 },
 		attenuationDistance: { value: 3.1, min: 0, max: 10, step: 0.01 },
 		attenuationColor: '#ffffff',
 		tColor: '#0000FF',
-		color: '#9c9c9c',
-		bg: '#ff0000',
+		color: '#c9ffa1',
+		bg: '#000000',
 	});
 
 	useFrame((state) => {
