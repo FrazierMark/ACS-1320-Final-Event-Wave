@@ -2,6 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
 import Lights from './Lights';
 import CameraRig from './CameraRig';
+import Sphere from './Sphere';
+import { OrbitControls } from '@react-three/drei';
+import { Effects } from './Effects';
 // import { Leva } from 'leva';
 
 const CanvasScene = () => {
@@ -22,9 +25,13 @@ const CanvasScene = () => {
 			/>
 
 			<CameraRig>
-				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}></Float>
+				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}>
+					<Sphere />
+				</Float>
 			</CameraRig>
 
+			<Effects />
+			<OrbitControls />
 			<Lights />
 		</Canvas>
 	);

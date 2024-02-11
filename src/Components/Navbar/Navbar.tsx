@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { a } from '@react-spring/web';
 import { useGSAP } from '@gsap/react';
 import { useLenis } from '@studio-freight/react-lenis';
 

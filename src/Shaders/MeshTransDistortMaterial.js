@@ -3,67 +3,74 @@ import * as THREE from 'three';
 import * as React from 'react';
 import { extend, useFrame } from '@react-three/fiber';
 import { useFBO } from '@react-three/drei';
-import { DiscardMaterial } from '@react-three/drei/materials/DiscardMaterial.js'
-import distort from '@react-three/drei/helpers/glsl/distort.vert.glsl.js';
+import { DiscardMaterial } from '../../node_modules/@react-three/drei/materials/DiscardMaterial.js';
+import distort from '../../node_modules/@react-three/drei/helpers/glsl/distort.vert.glsl.js';
 
 const WHITE = new THREE.Color('white');
 const INFINITY = Infinity;
 const CHROMATIC_ABERRATION = 0.05;
 
 class MeshTransDistortMaterialImpl extends THREE.MeshPhysicalMaterial {
-  constructor(samples = 6, transmissionSampler = false) {
-    super();
-    this.uniforms = {
-      chromaticAberration: { value: CHROMATIC_ABERRATION },
-      transmission: { value: 0 },
-      _transmission: { value: 1 },
-      transmissionMap: { value: null },
-      roughness: { value: 0 },
-      thickness: { value: 0 },
-      thicknessMap: { value: null },
-      attenuationDistance: { value: INFINITY },
-      attenuationColor: { value: WHITE },
-      anisotropicBlur: { value: 0.1 },
-      time: { value: 0 },
-      distortion: { value: 0.0 },
-      distortionScale: { value: 0.5 },
-      distort: { value: 0.4 },
-      radius: { value: 1 },
-      temporalDistortion: { value: 0.0 },
-      buffer: { value: null }
-    };
+	constructor(samples = 6, transmissionSampler = false) {
+		super();
+		this.uniforms = {
+			chromaticAberration: { value: CHROMATIC_ABERRATION },
+			transmission: { value: 0 },
+			_transmission: { value: 1 },
+			transmissionMap: { value: null },
+			roughness: { value: 0 },
+			thickness: { value: 0 },
+			thicknessMap: { value: null },
+			attenuationDistance: { value: INFINITY },
+			attenuationColor: { value: WHITE },
+			anisotropicBlur: { value: 0.1 },
+			time: { value: 0 },
+			distortion: { value: 0.0 },
+			distortionScale: { value: 0.5 },
+			distort: { value: 0.4 },
+			radius: { value: 1 },
+			temporalDistortion: { value: 0.0 },
+			buffer: { value: null },
+		};
 
-    this.onBeforeCompile = shader => {
-      shader.uniforms = {
-        ...shader.uniforms,
-        ...this.uniforms
-      }; // If the transmission sampler is active inject a flag
+		this.onBeforeCompile = (shader) => {
+			shader.uniforms = {
+				...shader.uniforms,
+				...this.uniforms,
+			};
 
-      if (transmissionSampler) shader.defines.USE_SAMPLER = ''; // Otherwise we do use use .transmission and must therefore force USE_TRANSMISSION
-      // because threejs won't inject it for us
-      else shader.defines.USE_TRANSMISSION = ''; // Head
+			// Fix for r153-r156 anisotropy chunks
+			// https://github.com/mrdoob/three.js/pull/26716
+			if (this.anisotropy > 0) shader.defines.USE_ANISOTROPY = '';
 
-      shader.vertexShader =
-        /*glsl*/
-        `
+			// If the transmission sampler is active inject a flag
+			if (transmissionSampler) shader.defines.USE_SAMPLER = '';
+			// Otherwise we do use use .transmission and must therefore force USE_TRANSMISSION
+			// because threejs won't inject it for us
+			else shader.defines.USE_TRANSMISSION = '';
+
+			shader.vertexShader =
+				/*glsl*/
+				`
       uniform float time;
       uniform float radius;
       uniform float distort;
       ${distort}
       ${shader.vertexShader}
     `;
-      shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>',
-        /*glsl*/
-        `
+			shader.vertexShader = shader.vertexShader.replace(
+				'#include <begin_vertex>',
+				/*glsl*/
+				`
       float updateTime = time / 50.0;
       float noise = snoise(vec3(position / 2.0 + updateTime * 5.0));
       vec3 transformed = vec3(position * (noise * pow(distort, 2.0) + radius));
-      `);
+      `
+			);
 
-
-      shader.fragmentShader =
-        /*glsl*/
-        `
+			shader.fragmentShader =
+				/*glsl*/
+				`
       uniform float chromaticAberration;         
       uniform float anisotropicBlur;      
       uniform float time;
@@ -156,9 +163,10 @@ class MeshTransDistortMaterialImpl extends THREE.MeshPhysicalMaterial {
               +0.0666667* snoise(8.0*m);
       }\n` + shader.fragmentShader; // Remove transmission
 
-      shader.fragmentShader = shader.fragmentShader.replace('#include <transmission_pars_fragment>',
-        /*glsl*/
-        `
+			shader.fragmentShader = shader.fragmentShader.replace(
+				'#include <transmission_pars_fragment>',
+				/*glsl*/
+				`
         #ifdef USE_TRANSMISSION
           // Transmission code is based on glTF-Sampler-Viewer
           // https://github.com/KhronosGroup/glTF-Sample-Viewer
@@ -234,11 +242,13 @@ class MeshTransDistortMaterialImpl extends THREE.MeshPhysicalMaterial {
             vec3 F = EnvironmentBRDF( n, v, specularColor, specularF90, roughness );
             return vec4( ( 1.0 - F ) * attenuatedColor * diffuseColor, transmittedLight.a );
           }
-        #endif\n`); // Add refraction
+        #endif\n`
+			); // Add refraction
 
-      shader.fragmentShader = shader.fragmentShader.replace('#include <transmission_fragment>',
-        /*glsl*/
-        `  
+			shader.fragmentShader = shader.fragmentShader.replace(
+				'#include <transmission_fragment>',
+				/*glsl*/
+				`  
         // Improve the refraction to use the world pos
         material.transmission = _transmission;
         material.transmissionAlpha = 1.0;
@@ -286,107 +296,123 @@ class MeshTransDistortMaterialImpl extends THREE.MeshPhysicalMaterial {
           transmission.b += transmissionB;
         }
         transmission /= ${samples}.0;
-        totalDiffuse = mix( totalDiffuse, transmission.rgb, material.transmission );\n`);
-    };
+        totalDiffuse = mix( totalDiffuse, transmission.rgb, material.transmission );\n`
+			);
+		};
 
-    Object.keys(this.uniforms).forEach(name => Object.defineProperty(this, name, {
-      get: () => this.uniforms[name].value,
-      set: v => this.uniforms[name].value = v
-    }));
-  }
-
+		Object.keys(this.uniforms).forEach((name) =>
+			Object.defineProperty(this, name, {
+				get: () => this.uniforms[name].value,
+				set: (v) => this.uniforms[name].value = v,
+			})
+		);
+	}
 }
 
-const MeshTransDistortMaterial = /*#__PURE__*/React.forwardRef(({
-  speed = 1,
-  buffer,
-  transmissionSampler = false,
-  backside = false,
-  side = THREE.FrontSide,
-  transmission = 1,
-  thickness = 0,
-  backsideThickness = 0,
-  samples = 10,
-  resolution,
-  backsideResolution,
-  background,
-  anisotropy,
-  anisotropicBlur,
-  ...props
-}, fref) => {
-  extend({
-    MeshTransDistortMaterial: MeshTransDistortMaterialImpl
-  });
-  const ref = React.useRef(null);
-  const [discardMaterial] = React.useState(() => new DiscardMaterial());
-  const [material] = React.useState(() => new MeshTransDistortMaterialImpl());
-  const fboBack = useFBO(backsideResolution || resolution);
-  const fboMain = useFBO(resolution);
-  let oldBg;
-  let oldTone;
-  let parent;
-  useFrame(state => {
-    ref.current.time = state.clock.getElapsedTime();
+const MeshTransDistortMaterial = /*#__PURE__*/ React.forwardRef(
+	(
+		{
+			speed = 1,
+			buffer,
+			transmissionSampler = false,
+			backside = false,
+			side = THREE.FrontSide,
+			transmission = 1,
+			thickness = 0,
+			backsideThickness = 0,
+			samples = 10,
+			resolution,
+			backsideResolution,
+			background,
+			anisotropy,
+			anisotropicBlur,
+			...props
+		},
+		fref
+	) => {
+		extend({
+			MeshTransDistortMaterial: MeshTransDistortMaterialImpl,
+		});
+		const ref = React.useRef(null);
+		const [discardMaterial] = React.useState(() => new DiscardMaterial());
+		const [material] = React.useState(() => new MeshTransDistortMaterialImpl());
+		const fboBack = useFBO(backsideResolution || resolution);
+		const fboMain = useFBO(resolution);
+		let oldBg;
+		let oldTone;
+		let parent;
+		useFrame((state) => {
+			ref.current.time = state.clock.getElapsedTime();
 
-    if (ref.current.buffer === fboMain.texture && !transmissionSampler) {
-      material && (material.time = state.clock.getElapsedTime() * speed)
-      parent = ref.current.__r3f.parent;
+			if (ref.current.buffer === fboMain.texture && !transmissionSampler) {
+				material && (material.time = state.clock.getElapsedTime() * speed);
+				parent = ref.current.__r3f.parent;
 
-      if (parent) {
-        // Save defaults
-        oldTone = state.gl.toneMapping;
-        oldBg = state.scene.background; // Switch off tonemapping lest it double tone maps
-        // Save the current background and set the HDR as the new BG
-        // Use discardmaterial, the parent will be invisible, but it's shadows will still be cast
+				if (parent) {
+					// Save defaults
+					oldTone = state.gl.toneMapping;
+					oldBg = state.scene.background; 
+          
+          // Switch off tonemapping lest it double tone maps
+					// Save the current background and set the HDR as the new BG
+					// Use discardmaterial, the parent will be invisible, but it's shadows will still be cast
 
-        state.gl.toneMapping = THREE.NoToneMapping;
-        if (background) state.scene.background = background;
-        parent.material = discardMaterial;
+					state.gl.toneMapping = THREE.NoToneMapping;
+					if (background) state.scene.background = background;
+					parent.material = discardMaterial;
 
-        if (backside) {
-          // Render into the backside buffer
-          state.gl.setRenderTarget(fboBack);
-          state.gl.render(state.scene, state.camera); // And now prepare the material for the main render using the backside buffer
+					if (backside) {
+						// Render into the backside buffer
+						state.gl.setRenderTarget(fboBack);
+						state.gl.render(state.scene, state.camera); // And now prepare the material for the main render using the backside buffer
 
-          parent.material = ref.current;
-          parent.material.buffer = fboBack.texture;
-          parent.material.thickness = backsideThickness;
-          parent.material.side = THREE.BackSide;
-        } // Render into the main buffer
+						parent.material = ref.current;
+						parent.material.buffer = fboBack.texture;
+						parent.material.thickness = backsideThickness;
+						parent.material.side = THREE.BackSide;
+					} // Render into the main buffer
 
+					state.gl.setRenderTarget(fboMain);
+					state.gl.render(state.scene, state.camera);
+					parent.material = ref.current;
+					parent.material.thickness = thickness;
+					parent.material.side = side;
+					parent.material.buffer = fboMain.texture; // Set old state back
 
-        state.gl.setRenderTarget(fboMain);
-        state.gl.render(state.scene, state.camera);
-        parent.material = ref.current;
-        parent.material.thickness = thickness;
-        parent.material.side = side;
-        parent.material.buffer = fboMain.texture; // Set old state back
+					state.scene.background = oldBg;
+					state.gl.setRenderTarget(null);
+					state.gl.toneMapping = oldTone;
+				}
+			}
+		}); // Forward ref
 
-        state.scene.background = oldBg;
-        state.gl.setRenderTarget(null);
-        state.gl.toneMapping = oldTone;
-      }
-    }
-  }); // Forward ref
-
-  React.useImperativeHandle(fref, () => ref.current, []);
-  return /*#__PURE__*/React.createElement("meshTransDistortMaterial", _extends({
-    // Samples must re-compile the shader so we memoize it
-    args: [samples, transmissionSampler],
-    ref: ref,
-    attach: "material"
-  }, props, {
-    buffer: buffer || fboMain.texture // @ts-ignore
-    ,
-    _transmission: transmission // In order for this to not incur extra cost "transmission" must be set to 0 and treated as a reserved prop.
-    // This is because THREE.WebGLRenderer will check for transmission > 0 and execute extra renders.
-    // The exception is when transmissionSampler is set, in which case we are using three's built in sampler.
-    ,
-    anisotropicBlur: anisotropicBlur !== null && anisotropicBlur !== void 0 ? anisotropicBlur : anisotropy,
-    transmission: transmissionSampler ? transmission : 0,
-    thickness: thickness,
-    side: side
-  }));
-});
+		React.useImperativeHandle(fref, () => ref.current, []);
+		return /*#__PURE__*/ React.createElement(
+			'meshTransDistortMaterial',
+			_extends(
+				{
+					// Samples must re-compile the shader so we memoize it
+					args: [samples, transmissionSampler],
+					ref: ref,
+					attach: 'material',
+				},
+				props,
+				{
+					buffer: buffer || fboMain.texture, // @ts-ignore
+					_transmission: transmission, // In order for this to not incur extra cost "transmission" must be set to 0 and treated as a reserved prop.
+					// This is because THREE.WebGLRenderer will check for transmission > 0 and execute extra renders.
+					// The exception is when transmissionSampler is set, in which case we are using three's built in sampler.
+					anisotropicBlur:
+						anisotropicBlur !== null && anisotropicBlur !== void 0
+							? anisotropicBlur
+							: anisotropy,
+					transmission: transmissionSampler ? transmission : 0,
+					thickness: thickness,
+					side: side,
+				}
+			)
+		);
+	}
+);
 
 export { MeshTransDistortMaterial };
