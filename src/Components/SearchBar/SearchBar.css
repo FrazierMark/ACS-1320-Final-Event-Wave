@@ -1,49 +1,68 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+.search-bar {
+  position: absolute; 
+  transform: translate(-50%, -50%);
+  bottom: 10%;
+  left: 50%;
+  max-width: 60rem;
+  width: 40%;
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  align-items: center;
+  background-color: rgba(149, 190, 251, 0.5);
+  padding: 0.5rem 0.7rem;
+	height: 3.5rem;
+  border-radius: 1.2rem;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
-.search-box{
-  flex: 0 40px auto;
-	background-color: transparent;
-	height: 50px;
-	border-radius: 40px;
-	padding: 10px;
-	margin: 15px;
-	justify-content: center;
+.search-bar input {
+  position: relative;
+	font-size: 1.6rem;
+  padding: 0.5rem; /* Adjust padding to give some space around the text input */
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  color: #fff;
+  height: 1.5rem; /* Adjust the height as desired */
+}
+
+.search-bar input::placeholder {
+  color: #b8c2d1;
 }
 
 .search-btn {
-	float: right;
-	width: 10px;
-	height: 10px;
-	background-color: transparent;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: 0.4s;
-	box-shadow: none;
-	text-transform: uppercase;
-	letter-spacing: 3px;
-	line-height: 1.4em;
-	color: #fff;
-	padding: 14px 40px;
-	border: none;
-	border-radius: 20px;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  height: 2rem;
+  width: 2rem;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 1rem; 
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-.img {
-  display: flex;
-  width: 25px;
-  height: auto;
+@media screen and (max-width: 410px) {
+  /* .search-btn {
+    display: none;
+  } */
+	.search-bar input {
+		display: none;
+	}
 }
 
 .alert {
     display: none;
-    background-color: #f4433686;
+    background-color: #ff1100e0;
     color: white;
-    border-radius: 20px;
-    margin-top: 0;
-  }
+    border-radius: 5em;
+		padding: 0.6em;
+		margin-bottom: 3em;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
   
-  .invalid {
-    display: block;
-  }
+.invalid {
+	display: block;
+}
