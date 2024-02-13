@@ -6,7 +6,6 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef } from 'react';
 import { useMemo } from 'react';
-import { MeshTransmissionMaterial } from '@react-three/drei';
 import { MeshTransDistortMaterial } from '../Shaders/MeshTransDistortMaterial';
 import { a } from '@react-spring/three';
 
@@ -40,10 +39,10 @@ const Sphere = () => {
 		distortion: { value: 0.0, min: 0, max: 1, step: 0.01 },
 		distortionScale: { value: 1.0, min: 0.01, max: 1, step: 0.01 },
 		temporalDistortion: { value: 1.0, min: 0, max: 1, step: 0.01 },
-		clearcoat: { value: 1, min: 0, max: 1 },
+		clearcoat: { value: 0.33, min: 0, max: 1 },
 		attenuationDistance: { value: 3.1, min: 0, max: 10, step: 0.01 },
 		attenuationColor: '#ffffff',
-		tColor: '#0000FF',
+		tColor: '#ffb207',
 		color: '#c9ffa1',
 		bg: '#000000',
 	});
@@ -93,7 +92,7 @@ const Sphere = () => {
 				scale={[27, 27, 27]}
 				position={[0, 3, 13]}
 				rotation={[Math.PI / 2, 0, 0]}
-				geometry={nodes.Cylinder.geometry}
+				geometry={(nodes.Cylinder as THREE.Mesh).geometry}
 			>
 				<DistortMaterial background={new THREE.Color(config.bg)} {...config} />
 			</mesh>

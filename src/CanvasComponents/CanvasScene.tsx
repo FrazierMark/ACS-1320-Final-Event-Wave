@@ -14,7 +14,7 @@ const CanvasScene = () => {
 		<Canvas
 			className='canvas'
 			shadows={true}
-			camera={{ position: [0, 2, 7.2], fov: 45 }}
+			camera={{ position: [0, 2, 85.2], fov: 45 }}
 		>
 			<ambientLight intensity={1} />
 			<Environment preset='warehouse' blur={1} />
