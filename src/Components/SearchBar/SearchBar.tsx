@@ -1,14 +1,15 @@
 
 import { useState } from "react";
 import { searchEvents } from "../../utils/searchApi.js";
-import { Navigate } from 'react-router-dom';
-import { isValidZipCode } from "../../utils/helpfulFunctions.js";
+import { useNavigate } from 'react-router-dom';
+import { isValidZipCode } from '../../utils/helperFunctions.js';
 import './SearchBar.css'
 
 
 const SearchBar = () => {
     const [zip, setZip] = useState("");
     const [radius, setRadius] = useState("50");
+    const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -19,7 +20,9 @@ const SearchBar = () => {
         e.preventDefault();
         if (isValidZipCode(zip)) {
             const responseData = await searchEvents(zip, radius);
-            navigate("/events", { state: { search_results: responseData.data } });
+            if (responseData) {
+                navigate("/events", { state: { search_results: responseData.data } });
+            }
         }
     };
 

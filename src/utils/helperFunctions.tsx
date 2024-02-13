@@ -1,3 +1,5 @@
+
+
 export const  parseData = (responseData) => {
     const eventsContext = [];
     responseData.events.forEach((event) => {
@@ -47,7 +49,7 @@ export const createGoogleEvent = (responseData) => {
 }
 
 
-export const formatDate = (dateString) => {
+export const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options = {
         weekday: 'long',

@@ -2,18 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 .search-box{
-  	flex: 0 40px auto;
-	transition: (-50%);
-	background-color: #2f3640;
+  flex: 0 40px auto;
+	background-color: transparent;
 	height: 50px;
 	border-radius: 40px;
 	padding: 10px;
 	margin: 15px;
 	justify-content: center;
-}
-.search-box:hover > .search-txt{
-	width: 240px;
-	padding: 10px 10px;	
 }
 
 .search-btn {
@@ -25,35 +20,20 @@
 	justify-content: center;
 	align-items: center;
 	transition: 0.4s;
-    box-shadow: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    line-height: 1.4em;
-    color: #fff;
-    padding: 14px 40px;
-    border: none;
-    border-radius: 20px;
+	box-shadow: none;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	line-height: 1.4em;
+	color: #fff;
+	padding: 14px 40px;
+	border: none;
+	border-radius: 20px;
 }
 
 .img {
   display: flex;
   width: 25px;
   height: auto;
-}
-
-.search-txt {
-	border:none;
-	background: none;
-	outline: none;
-	float: left;
-	color: rgb(173, 173, 173);
-	font-size: 18px;
-	transition: 0.4s;
-	line-height: 40px;
-	width: 0px;
-	vertical-align: middle;
-	
-
 }
 
 .alert {

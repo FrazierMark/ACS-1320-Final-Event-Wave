@@ -4,6 +4,7 @@ import Lights from './Lights';
 import CameraRig from './CameraRig';
 import Sphere from './Sphere';
 import { OrbitControls } from '@react-three/drei';
+import { Leva } from 'leva';
 import { Effects } from './Effects';
 import { Stars } from '@react-three/drei';
 import AnimatedStars from './AnimatedStars';
@@ -14,8 +15,9 @@ const CanvasScene = () => {
 		<Canvas
 			className='canvas'
 			shadows={true}
-			camera={{ position: [0, 2, 85.2], fov: 45 }}
+			camera={{ position: [0, 2, 145.2], fov: 40 }}
 		>
+			<Leva hidden />
 			<ambientLight intensity={1} />
 			<Environment preset='warehouse' blur={1} />
 

@@ -89,8 +89,8 @@ const Sphere = () => {
 		<>
 			<mesh
 				ref={object}
-				scale={[27, 27, 27]}
-				position={[0, 3, 13]}
+				scale={[25, 25, 25]}
+				position={[0, 6, 13]}
 				rotation={[Math.PI / 2, 0, 0]}
 				geometry={(nodes.Cylinder as THREE.Mesh).geometry}
 			>
