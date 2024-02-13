@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react';
 //import { MeshRefractionMaterial } from "../../shaders/MeshRefractionMaterial.js";
-import { useFBO, Text, useGLTF } from '@react-three/drei';
+import { useFBO, Text, useGLTF, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useControls } from 'leva';
@@ -30,7 +30,7 @@ const Sphere = () => {
 		speed: { value: 1, min: 1, max: 20, step: 0.1 },
 		distort: { value: 0.52, min: 0, max: 1, step: 0.01 },
 		samples: { value: 5, min: 1, max: 32, step: 1 },
-		resolution: { value: 1024, min: 256, max: 2048, step: 256 },
+		resolution: { value: 512, min: 256, max: 2048, step: 256 },
 		transmission: { value: 1, min: 0, max: 1 },
 		roughness: { value: 0.0, min: 0, max: 1, step: 0.01 },
 		thickness: { value: 3.5, min: 0, max: 10, step: 0.01 },
@@ -91,7 +91,7 @@ const Sphere = () => {
 			<mesh
 				ref={object}
 				scale={[27, 27, 27]}
-				position={[0, 0, 13]}
+				position={[0, 3, 13]}
 				rotation={[Math.PI / 2, 0, 0]}
 				geometry={nodes.Cylinder.geometry}
 			>
