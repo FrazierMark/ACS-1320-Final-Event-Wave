@@ -65,7 +65,7 @@ const Navbar = () => {
 				scrollTrigger: { scrub: 0.33 },
 			});
 		}
-	}, []);
+	}, [progressRef]);
 
 	return (
 		<div ref={navRef} id='nav'>

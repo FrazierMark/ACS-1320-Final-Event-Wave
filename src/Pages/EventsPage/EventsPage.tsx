@@ -9,9 +9,7 @@ const EventsPage = () => {
 	const [parsedData, setParsedData] = useState([] as ParsedEvent[]);
 
 	const {state} = useLocation();
-  console.log(state)
 	const searchResults = state
-	console.log(searchResults);
 
 	useEffect(() => {
 		if (searchResults) {
