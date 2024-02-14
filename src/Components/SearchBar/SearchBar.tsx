@@ -6,6 +6,7 @@ import './SearchBar.css';
 
 const SearchBar = () => {
 	const [zip, setZip] = useState('');
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [radius, setRadius] = useState('50');
 	const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const SearchBar = () => {
 		if (isValidZipCode(zip)) {
 			const responseData = await searchEvents(zip, radius);
 			if (responseData) {
-				navigate('/events', { state: { search_results: responseData.data } });
+				navigate('/events', { state: responseData.data });
 			}
 		}
 	};

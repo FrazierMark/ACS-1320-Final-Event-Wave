@@ -1,34 +1,67 @@
-export const parseData = (responseData) => {
-	const eventsContext = [];
+interface EventData {
+	title: string;
+	id: number;
+	url: string;
+	datetime_utc: string;
+	type: string;
+	performers: {
+			name: string;
+			image: string;
+	}[];
+	venue: {
+			name: string;
+	};
+}
+
+export interface ParsedEvent {
+	title: string;
+	seatgeek_id: number;
+	url: string;
+	pub: string;
+	performer: string;
+	performers: {
+			name: string;
+			image: string;
+	}[];
+	performerArray: string[];
+	eventType: string;
+	image: string;
+	venue: string;
+}
+
+export const parseData = (responseData: { events: EventData[] }): ParsedEvent[] => {
+	const eventsContext: ParsedEvent[] = [];
 	responseData.events.forEach((event) => {
-		const {
-			title,
-			id: seatgeek_id,
-			url,
-			datetime_utc: pub,
-			type: eventType,
-			performers,
-			venue,
-		} = event;
-		const performerArray = performers.map((performer) => performer.name);
-		const context = {
-			title,
-			seatgeek_id,
-			url,
-			pub,
-			performer: performers[0].name,
-			performers,
-			performerArray,
-			eventType,
-			image: performers[0].image,
-			venue: venue.name,
-		};
-		eventsContext.push(context);
+			const {
+					title,
+					id: seatgeek_id,
+					url,
+					datetime_utc: pub,
+					type: eventType,
+					performers,
+					venue,
+			} = event;
+			const performerArray = performers.map((performer) => performer.name);
+			const context: ParsedEvent = {
+					title,
+					seatgeek_id,
+					url,
+					pub,
+					performer: performers[0].name,
+					performers,
+					performerArray,
+					eventType,
+					image: performers[0].image,
+					venue: venue.name,
+			};
+			eventsContext.push(context);
 	});
 	return eventsContext;
 };
 
-export const createGoogleEvent = (responseData) => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createGoogleEvent = (responseData: any) => {
 	const title = responseData['events'][0]['title'];
 	const url = responseData['events'][0]['url'];
 	const pub = responseData['events'][0]['datetime_utc'];

@@ -1,0 +1,23 @@
+.events-lower-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	align-items: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	background-position: center;
+	background-size: cover;
+}
+
+.events-event-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	z-index: 1;
+	margin-top: 5rem;
+	margin-left: 5px;
+	margin-right: 5px;
+	justify-content: space-evenly;
+	gap: 60px 30px;
+}
