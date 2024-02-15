@@ -6,14 +6,14 @@ import { Points } from 'three';
 const AnimatedStars = () => {
 	const starRef = useRef<Points>(null);
 
-	useFrame((state, delta) => {
-		if (starRef.current) {
-			starRef.current.position.z = 10;
-			starRef.current.position.y = 14;
-			starRef.current.rotation.y += delta * 0.05;
-			starRef.current.rotation.x += delta * 0.04;
-		}
-	});
+	// useFrame((state, delta) => {
+	// 	if (starRef.current) {
+	// 		starRef.current.position.z = 10;
+	// 		starRef.current.position.y = 14;
+	// 		starRef.current.rotation.y += delta * 0.05;
+	// 		starRef.current.rotation.x += delta * 0.04;
+	// 	}
+	// });
 
 	return (
 		<>

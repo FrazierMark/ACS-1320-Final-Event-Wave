@@ -8,7 +8,6 @@ export const searchEvents = async (zip: string, radius: string) => {
 	const query = `${BASE_URL}geoip=${zip}&range=${radius}mi${PER_PAGE}${CLIENT_ID}`;
 	try {
 		const response = await axios.get(query);
-		// console.log("RESPONSE ==== : ", response.data);
 		return response;
 	} catch (err) {
 		console.log('ERROR: === ', err);
