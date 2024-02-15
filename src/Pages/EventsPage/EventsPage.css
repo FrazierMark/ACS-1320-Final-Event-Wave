@@ -1,13 +1,9 @@
-.events-lower-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+.events-container {
+	margin-top: 15%;
 	width: 100%;
-	align-items: center;
 	background-repeat: no-repeat;
 	height: 100%;
-	background-position: center;
-	background-size: cover;
+	/* background: #fff url('/bg.svg'); */
 }
 
 .events-event-row {
@@ -15,7 +11,6 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	z-index: 1;
-	margin-top: 5rem;
 	margin-left: 5px;
 	margin-right: 5px;
 	justify-content: space-evenly;

@@ -9,7 +9,7 @@
   display: grid;
   grid-template-columns: 1fr 3rem;
   align-items: center;
-  background-color: rgba(149, 190, 251, 0.5);
+  background-color: rgba(149, 190, 251, 0.288);
   padding: 0.5rem 0.7rem;
 	height: 3.5rem;
   border-radius: 1.2rem;
@@ -19,12 +19,12 @@
 .search-bar input {
   position: relative;
 	font-size: 1.6rem;
-  padding: 0.5rem; /* Adjust padding to give some space around the text input */
+  padding: 0.5rem;
   outline: 0;
   border: 0;
   background-color: transparent;
   color: #fff;
-  height: 1.5rem; /* Adjust the height as desired */
+  height: 1.5rem; 
 }
 
 .search-bar input::placeholder {

@@ -303,7 +303,7 @@ class MeshTransDistortMaterialImpl extends THREE.MeshPhysicalMaterial {
 		Object.keys(this.uniforms).forEach((name) =>
 			Object.defineProperty(this, name, {
 				get: () => this.uniforms[name].value,
-				set: (v) => this.uniforms[name].value = v,
+				set: (v) => (this.uniforms[name].value = v),
 			})
 		);
 	}
@@ -351,9 +351,9 @@ const MeshTransDistortMaterial = /*#__PURE__*/ React.forwardRef(
 				if (parent) {
 					// Save defaults
 					oldTone = state.gl.toneMapping;
-					oldBg = state.scene.background; 
-          
-          // Switch off tonemapping lest it double tone maps
+					oldBg = state.scene.background;
+
+					// Switch off tonemapping lest it double tone maps
 					// Save the current background and set the HDR as the new BG
 					// Use discardmaterial, the parent will be invisible, but it's shadows will still be cast
 

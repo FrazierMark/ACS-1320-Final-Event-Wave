@@ -4,23 +4,19 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { useLenis } from '@studio-freight/react-lenis';
 
 const Navbar = () => {
 	gsap.registerPlugin(ScrollTrigger);
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const navRef = useRef<HTMLDivElement>(null);
 	const progressRef = useRef<HTMLDivElement>(null);
-
-	// const lenis = useLenis();
-	// const handleClick = (position) => {
-	//   lenis.scrollTo(position);
-	// };
+	
 
 	const handleScroll = () => {
 		const position = window.scrollY;
 		setScrollPosition(position);
 	};
+
 
 	// Get scroll position
 	useEffect(() => {
@@ -65,7 +61,7 @@ const Navbar = () => {
 				scrollTrigger: { scrub: 0.33 },
 			});
 		}
-	}, [progressRef]);
+	}, [navRef, progressRef]);
 
 	return (
 		<div ref={navRef} id='nav'>

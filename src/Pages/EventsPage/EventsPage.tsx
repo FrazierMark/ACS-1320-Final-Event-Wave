@@ -4,12 +4,14 @@ import { useLocation } from 'react-router-dom';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import EventCard from '../../Components/EventCard/EventCard';
 import { ParsedEvent } from '../../utils/helperFunctions';
+import './EventsPage.css';
 
 const EventsPage = () => {
 	const [parsedData, setParsedData] = useState([] as ParsedEvent[]);
 
-	const {state} = useLocation();
-	const searchResults = state
+	const { state } = useLocation();
+
+	const searchResults = state;
 
 	useEffect(() => {
 		if (searchResults) {
@@ -21,22 +23,23 @@ const EventsPage = () => {
 	return (
 		<>
 			<SearchBar />
-
-			<div className='events-event-row'>
-				{parsedData &&
-					parsedData.map((eventGig, idx) => (
-						<EventCard
-							title={eventGig.title}
-							seatgeekId={eventGig.seatgeek_id}
-							url={eventGig.url}
-							pub={eventGig.pub}
-							performer={eventGig.performer}
-							eventType={eventGig.eventType}
-							image={eventGig.image}
-							venue={eventGig.venue}
-							key={idx}
-						/>
-					))}
+			<div className='events-container'>
+				<div className='events-event-row'>
+					{parsedData &&
+						parsedData.map((eventGig, idx) => (
+							<EventCard
+								title={eventGig.title}
+								seatgeekId={eventGig.seatgeek_id}
+								url={eventGig.url}
+								pub={eventGig.pub}
+								performer={eventGig.performer}
+								eventType={eventGig.eventType}
+								image={eventGig.image}
+								venue={eventGig.venue}
+								key={idx}
+							/>
+						))}
+				</div>
 			</div>
 		</>
 	);

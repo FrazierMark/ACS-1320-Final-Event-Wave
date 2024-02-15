@@ -1,15 +1,13 @@
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 //import { MeshRefractionMaterial } from "../../shaders/MeshRefractionMaterial.js";
-import { useFBO, Text, useGLTF, ContactShadows } from '@react-three/drei';
+import { useFBO, Text, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef } from 'react';
 import { useMemo } from 'react';
 import { MeshTransDistortMaterial } from '../Shaders/MeshTransDistortMaterial';
-import { a } from '@react-spring/three';
 
-const DistortMaterial = a(MeshTransDistortMaterial);
 
 const Sphere = () => {
 	const { nodes } = useGLTF('/glbs/lens-transformed.glb');
@@ -94,7 +92,7 @@ const Sphere = () => {
 				rotation={[Math.PI / 2, 0, 0]}
 				geometry={(nodes.Cylinder as THREE.Mesh).geometry}
 			>
-				<DistortMaterial background={new THREE.Color(config.bg)} {...config} />
+				<MeshTransDistortMaterial background={new THREE.Color(config.bg)} {...config} />
 			</mesh>
 			<Text
 				position={[0.3, 0, 18]}
