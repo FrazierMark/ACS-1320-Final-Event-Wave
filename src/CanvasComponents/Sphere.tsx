@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 //import { MeshRefractionMaterial } from "../../shaders/MeshRefractionMaterial.js";
 import { useFBO, Text, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,16 +6,38 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef } from 'react';
 import { useMemo } from 'react';
+import { BackgroundMaterial } from '../Shaders/BackgroundMaterial';
 import { MeshTransDistortMaterial } from '../Shaders/MeshTransDistortMaterial';
+import fragmentShader from '../Shaders/Background/fragmentShader.glsl';
+import vertexShader from '../Shaders/Background/vertexShader.glsl';
 
 const Sphere = () => {
 	const { nodes } = useGLTF('/glbs/lens-transformed.glb');
 	const object = useRef();
+	const backgroundRef = useRef();
 	const fbo = useFBO(1024);
 	const { viewport } = useThree();
 	const [hovered, setHovered] = useState(false);
 	const [rEuler, rQuaternion] = useMemo(
 		() => [new THREE.Euler(), new THREE.Quaternion()],
+		[]
+	);
+
+	const uniforms = useMemo(
+		() => ({
+			_time: {
+				value: 0,
+			},
+			nodeUniform: {
+				value: 6.283,
+			},
+			uColor: {
+				value: new THREE.Color(0.0, 0.0, 0.0),
+			},
+			uTexture: {
+				value: new THREE.TextureLoader(),
+			},
+		}),
 		[]
 	);
 
@@ -44,12 +66,14 @@ const Sphere = () => {
 		bg: '#000000',
 	});
 
-	useFrame((state) => {
-		const { mouse } = state;
+	useFrame(( state) => {
+		const { mouse, clock } = state;
 
 		if (object.current) {
 			object.current.visible = false;
 		}
+
+		backgroundRef.current.material.uniforms._time.value = clock.getElapsedTime();
 
 		// set render target to an frame buffer object
 		state.gl.setRenderTarget(fbo);
@@ -84,6 +108,20 @@ const Sphere = () => {
 
 	return (
 		<>
+			{/* <mesh>
+				<planeBufferGeometry args={[0.4, 0.6, 16, 16]} />
+				<BackgroundMaterial uColor={'hotpink'} ref={backgroundRef} />
+			</mesh> */}
+
+			<mesh ref={backgroundRef}>
+				<planeGeometry args={[0.4, 0.6, 16, 16]} />
+				<shaderMaterial
+					fragmentShader={fragmentShader}
+					vertexShader={vertexShader}
+					uniforms={uniforms}
+				/>
+			</mesh>
+
 			<mesh
 				ref={object}
 				scale={[25, 25, 25]}
