@@ -15,7 +15,7 @@ const LandingPage = () => {
 			<div className='searchBar-container'>
 				<SearchBar />
 			</div>
-			<TagLine />
+			{/* <TagLine /> */}
 		</div>
 	);
 };

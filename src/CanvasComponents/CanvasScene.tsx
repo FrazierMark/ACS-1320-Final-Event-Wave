@@ -8,14 +8,15 @@ import { Leva } from 'leva';
 import { Effects } from './Effects';
 import { Stars } from '@react-three/drei';
 import AnimatedStars from './AnimatedStars';
+import Background from './Background';
+import { useRef } from 'react';
 // import { Leva } from 'leva';
 
 const CanvasScene = () => {
 	return (
 		<Canvas
 			className='canvas'
-			shadows={true}
-			camera={{ position: [0, 2, 145.2], fov: 40 }}
+			camera={{ position: [0, 0, 10], near: 0.01, far: 1000 }}
 		>
 			<Leva hidden />
 			<ambientLight intensity={1} />
@@ -27,10 +28,12 @@ const CanvasScene = () => {
 				</Float>
 			</CameraRig>
 
-			<AnimatedStars />
+			{/* <AnimatedStars /> */}
 			{/* <Effects /> */}
 			<OrbitControls />
 			<Lights />
+			{/* <Background position={[0,0,0]} /> */}
+			<Background />
 		</Canvas>
 	);
 };

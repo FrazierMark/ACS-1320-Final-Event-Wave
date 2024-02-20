@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 //import { MeshRefractionMaterial } from "../../shaders/MeshRefractionMaterial.js";
 import { useFBO, Text, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,38 +6,16 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef } from 'react';
 import { useMemo } from 'react';
-import { BackgroundMaterial } from '../Shaders/BackgroundMaterial';
 import { MeshTransDistortMaterial } from '../Shaders/MeshTransDistortMaterial';
-import fragmentShader from '../Shaders/Background/fragmentShader.glsl';
-import vertexShader from '../Shaders/Background/vertexShader.glsl';
 
 const Sphere = () => {
 	const { nodes } = useGLTF('/glbs/lens-transformed.glb');
 	const object = useRef();
-	const backgroundRef = useRef();
 	const fbo = useFBO(1024);
 	const { viewport } = useThree();
 	const [hovered, setHovered] = useState(false);
 	const [rEuler, rQuaternion] = useMemo(
 		() => [new THREE.Euler(), new THREE.Quaternion()],
-		[]
-	);
-
-	const uniforms = useMemo(
-		() => ({
-			_time: {
-				value: 0,
-			},
-			nodeUniform: {
-				value: 6.283,
-			},
-			uColor: {
-				value: new THREE.Color(0.0, 0.0, 0.0),
-			},
-			uTexture: {
-				value: new THREE.TextureLoader(),
-			},
-		}),
 		[]
 	);
 
@@ -49,13 +27,13 @@ const Sphere = () => {
 		distort: { value: 0.52, min: 0, max: 1, step: 0.01 },
 		samples: { value: 5, min: 1, max: 32, step: 1 },
 		resolution: { value: 512, min: 256, max: 2048, step: 256 },
-		transmission: { value: 1, min: 0, max: 1 },
+		transmission: { value: 0.80, min: 0, max: 1 },
 		roughness: { value: 0.0, min: 0, max: 1, step: 0.01 },
 		thickness: { value: 3.5, min: 0, max: 10, step: 0.01 },
 		ior: { value: 1.0, min: 1, max: 5, step: 0.01 },
 		chromaticAberration: { value: 0.06, min: 0, max: 1 },
-		anisotropy: { value: 1.0, min: 0, max: 1, step: 0.01 },
-		distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
+		anisotropy: { value: 0.0, min: 0, max: 1, step: 0.01 },
+		distortion: { value: 0.0, min: 0, max: 1, step: 0.01 },
 		distortionScale: { value: 1.0, min: 0.01, max: 1, step: 0.01 },
 		temporalDistortion: { value: 1.0, min: 0, max: 1, step: 0.01 },
 		clearcoat: { value: 0.33, min: 0, max: 1 },
@@ -66,14 +44,12 @@ const Sphere = () => {
 		bg: '#000000',
 	});
 
-	useFrame(( state) => {
-		const { mouse, clock } = state;
+	useFrame((state) => {
+		const { mouse } = state;
 
 		if (object.current) {
 			object.current.visible = false;
 		}
-
-		backgroundRef.current.material.uniforms._time.value = clock.getElapsedTime();
 
 		// set render target to an frame buffer object
 		state.gl.setRenderTarget(fbo);
@@ -108,24 +84,10 @@ const Sphere = () => {
 
 	return (
 		<>
-			{/* <mesh>
-				<planeBufferGeometry args={[0.4, 0.6, 16, 16]} />
-				<BackgroundMaterial uColor={'hotpink'} ref={backgroundRef} />
-			</mesh> */}
-
-			<mesh ref={backgroundRef}>
-				<planeGeometry args={[0.4, 0.6, 16, 16]} />
-				<shaderMaterial
-					fragmentShader={fragmentShader}
-					vertexShader={vertexShader}
-					uniforms={uniforms}
-				/>
-			</mesh>
-
 			<mesh
 				ref={object}
 				scale={[25, 25, 25]}
-				position={[0, 6, 13]}
+				position={[0, 0, -30]}
 				rotation={[Math.PI / 2, 0, 0]}
 				geometry={(nodes.Cylinder as THREE.Mesh).geometry}
 			>
@@ -135,8 +97,8 @@ const Sphere = () => {
 				/>
 			</mesh>
 			<Text
-				position={[0.3, 0, 18]}
-				fontSize={5}
+				position={[0, 0, -20]}
+				fontSize={4}
 				color={config.tColor}
 				font={'fonts/EspinosaNovaPro-RotundaBold.otf'}
 				characters='abcdefghijklmnopqrstuvwxyz0123456789!'

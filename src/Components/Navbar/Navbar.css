@@ -1,51 +1,50 @@
-
 #nav {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  z-index: 3;
-  min-height: 60px;
-  position: fixed;
-  align-items: center;
-  justify-content: space-between;
-  transition-timing-function: ease-in;
-  transition: all 0.5s;
-  padding: 0 10px;
-  margin-bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  @media only screen and (min-width: 375px) and (max-width: 832px) {
-    justify-content: space-around;
-  }
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	z-index: 510;
+	min-height: 60px;
+	position: fixed;
+	align-items: center;
+	justify-content: space-between;
+	transition-timing-function: ease-in;
+	transition: all 0.5s;
+	padding: 0 10px;
+	margin-bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	@media only screen and (min-width: 375px) and (max-width: 832px) {
+		justify-content: space-around;
+	}
 }
 
 .nav_fade {
-  background-color: #0a647028;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.802);
-  border: none;
+	background-color: #0a647028;
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	border-bottom: 0.5px solid rgba(0, 0, 0, 0.802);
+	border: none;
 }
 
 .progress {
-  height: 3px;
-  background: #abeeff;
-  width: 100%;
-  z-index: 99999;
+	height: 3px;
+	background: #abeeff;
+	width: 100%;
+	z-index: 99999;
 
-  .inner {
-    background: #358512;
-    height: 100%;
-    transform-origin: left;
-    width: 100%;
-    transform: scaleX(0);
-  }
+	.inner {
+		background: #358512;
+		height: 100%;
+		transform-origin: left;
+		width: 100%;
+		transform: scaleX(0);
+	}
 }
 
 .title {
-  font-size: 2em;
-  font-family: 'Gajraj One', cursive;
+	font-size: 2em;
+	font-family: 'Gajraj One', cursive;
 }

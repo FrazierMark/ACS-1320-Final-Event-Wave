@@ -4,9 +4,8 @@ import { shaderMaterial } from '@react-three/drei';
 import fragmentShader from './Background/fragmentShader.glsl';
 import vertexShader from './Background/vertexShader.glsl';
 
-const BackgroundMaterial = shaderMaterial(
+const BackgroundMaterial = shaderMaterial({
 	// Uniform
-	{
 		_time: 0,
 		nodeUniform0: 6.283,
 		uColor: new THREE.Color(0.0, 0.0, 0.0),
@@ -18,6 +17,4 @@ const BackgroundMaterial = shaderMaterial(
 	fragmentShader
 );
 
-extend(BackgroundMaterial);
-
-export { BackgroundMaterial };
+extend({BackgroundMaterial});

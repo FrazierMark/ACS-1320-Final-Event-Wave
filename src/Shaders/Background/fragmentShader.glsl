@@ -46,19 +46,12 @@ vec2 customFn_Vt3hAuyyBfFT ( vec2 uv, vec2 center, float radialScale, float leng
 // variables
 // </node_builder>
 
-
-
-
-
-
-
-
 void main() {
 
 
-	vec4 diffuseColor = vec4( 1.0, 1.0, 0.0, 1.0 );
+	vec4 diffuseColor = vec4(0.81, 0.52, 0.11, 0.87);
 	
-nodeVar0 = 0.0;
+	nodeVar0 = 0.0;
 	nodeVar1 = ( 4.0 - 10000.0 );
 	nodeVar2 = ( 50.0 - 2.0 );
 	nodeVar3 = ( nodeVar1 * nodeVar2 );
@@ -72,7 +65,7 @@ nodeVar0 = 0.0;
 	nodeVar11 = ( vec4( nodeVar10.xy, 0.0, 1.0 ) * vec4( 1, 0.5490196078431373, 0, 1 ) );
 	nodeVar12 = cos( nodeVar11 );
 	nodeVar13 = customFn_ibqYgV5WNTCk( nodeVar12, vec4( vec3( 0.0 ), 1.0 ), vec4( vec3( 1.0 ), 1.0 ), vec4( vec3( 0.0 ), 1.0 ), vec4( vec3( 1.0 ), 1.0 ) );
-	nodeVar14 = ( nodeVar13 * vec4( 1, 1, 1, 1 ) );
+	nodeVar14 = ( nodeVar13 * diffuseColor );
 	
 	diffuseColor = nodeVar14;
 
