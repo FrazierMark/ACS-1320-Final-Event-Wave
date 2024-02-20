@@ -30,7 +30,7 @@ const SearchBar = ({ position }: SearchBarProps) => {
 	};
 
 	const searchBarStyle =
-		position === 'bottom' ? { bottom: '10%' } : { top: '16%'};
+		position === 'bottom' ? { bottom: '10%' } : { top: '13%' };
 
 	return (
 		<>

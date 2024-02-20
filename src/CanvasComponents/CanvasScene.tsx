@@ -18,7 +18,7 @@ const CanvasScene = () => {
 	return (
 		<Canvas
 			className='canvas'
-			camera={{ position: [0, 0, 10], near: 0.01, far: 1000 }}
+			camera={{ position: [0, 0, 23], near: 0.01, far: 1000 }}
 		>
 			<Leva hidden />
 			<ambientLight intensity={1} />
@@ -26,8 +26,7 @@ const CanvasScene = () => {
 
 			<CameraRig>
 				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}>
-				{location.pathname === '/' && <Sphere />}	
-				
+					{location.pathname === '/' && <Sphere />}
 				</Float>
 			</CameraRig>
 
