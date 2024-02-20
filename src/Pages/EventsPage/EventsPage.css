@@ -1,18 +1,40 @@
+.eventPage-container {
+	display: flex;
+	flex-direction: column;
+	z-index: 15;
+}
+
 .events-container {
+	position: relative;
+	padding: 3rem;
 	margin-top: 15%;
 	width: 100%;
 	background-repeat: no-repeat;
 	height: 100%;
 	/* background: #fff url('/bg.svg'); */
+	z-index: 16;
 }
 
 .events-event-row {
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	z-index: 1;
+	z-index: 15;
 	margin-left: 5px;
 	margin-right: 5px;
 	justify-content: space-evenly;
 	gap: 60px 30px;
+}
+
+@media screen and (max-width: 560px) {
+	.events-container {
+		margin-top: 50%;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.events-container {
+		margin-top: 50%;
+	}
 }

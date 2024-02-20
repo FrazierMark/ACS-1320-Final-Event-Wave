@@ -11,9 +11,12 @@
 	border-radius: 10px;
 	font-family: 'Neue Montreal', 'Lucida Sans Unicode', 'Lucida Grande',
 		'Lucida Sans', Arial, sans-serif;
-	background-color: rgba(253, 253, 253, 0.287);
+		background-color: #0a647028;
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
 	border-radius: 1.2rem;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	z-index: 15;
 }
 
 .card-image {
@@ -53,25 +56,15 @@
 	text-align: center;
 	line-height: 25px;
 	font-weight: 100;
+	color: rgba(255, 255, 255, 0.884);
 }
 
-.button {
-	cursor: pointer;
-	display: inline-block;
-	text-decoration: none;
-	color: var(--clr-neutral-900);
-	background-color: var(--clr-accent-400);
-	padding: 0.5em 1.25em;
-	border-radius: 0.25rem;
-}
-
-.button:hover,
-.button:focus {
-	background-color: var(--clr-neutral-100);
+a {
+	color: white;
 }
 
 .card-title {
-	color: rgb(255, 255, 255/0.85);
+	color: rgba(255, 255, 255, 0.843);
 	text-align: center;
 	font-size: 23px;
 	text-transform: uppercase;

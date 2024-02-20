@@ -18,7 +18,7 @@ body,
 	animation: fadeInAnimation ease 1.5s;
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
-	background-color: rgb(255, 245, 106);
+	/* background-color: rgb(255, 245, 106); */
 }
 
 #root div div canvas,
@@ -31,6 +31,16 @@ canvas {
 	height: 100%;
 	z-index: -15;
 	/* background: #fff url('/bg.svg'); */
+}
+
+.page-container {
+	width: 100vw;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	z-index: 15;
 }
 
 a {

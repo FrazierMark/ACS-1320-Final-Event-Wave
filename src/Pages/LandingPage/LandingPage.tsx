@@ -10,13 +10,12 @@ import './LandingPage.css';
 
 const LandingPage = () => {
 	return (
-		<div className='landing-page-container'>
-			<CanvasScene />
+		<>
 			<div className='searchBar-container'>
-				<SearchBar />
+				<SearchBar position='bottom' />
 			</div>
 			{/* <TagLine /> */}
-		</div>
+		</>
 	);
 };
 

@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { isValidZipCode } from '../../utils/helperFunctions.js';
 import './SearchBar.css';
 
-const SearchBar = () => {
+interface SearchBarProps {
+	position: 'bottom' | 'top'; // Define the valid positions
+}
+
+const SearchBar = ({ position }: SearchBarProps) => {
 	const [zip, setZip] = useState('');
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [radius, setRadius] = useState('50');
@@ -25,9 +29,16 @@ const SearchBar = () => {
 		}
 	};
 
+	const searchBarStyle =
+		position === 'bottom' ? { bottom: '10%' } : { top: '16%'};
+
 	return (
 		<>
-			<form className='search-bar' onSubmit={handleSubmit}>
+			<form
+				className='search-bar'
+				style={searchBarStyle}
+				onSubmit={handleSubmit}
+			>
 				<input
 					type='text'
 					className='search-query'

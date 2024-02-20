@@ -10,9 +10,11 @@ import { Stars } from '@react-three/drei';
 import AnimatedStars from './AnimatedStars';
 import Background from './Background';
 import { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 // import { Leva } from 'leva';
 
 const CanvasScene = () => {
+	const location = useLocation();
 	return (
 		<Canvas
 			className='canvas'
@@ -24,7 +26,8 @@ const CanvasScene = () => {
 
 			<CameraRig>
 				<Float rotationIntensity={0.5} floatIntensity={1} speed={3}>
-					<Sphere />
+				{location.pathname === '/' && <Sphere />}	
+				
 				</Float>
 			</CameraRig>
 
@@ -32,7 +35,6 @@ const CanvasScene = () => {
 			{/* <Effects /> */}
 			<OrbitControls />
 			<Lights />
-			{/* <Background position={[0,0,0]} /> */}
 			<Background />
 		</Canvas>
 	);

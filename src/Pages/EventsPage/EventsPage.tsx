@@ -21,8 +21,8 @@ const EventsPage = () => {
 	}, [searchResults, state]);
 
 	return (
-		<>
-			<SearchBar />
+		<div className='eventPage-container'>
+			<SearchBar position='top' />
 			<div className='events-container'>
 				<div className='events-event-row'>
 					{parsedData &&
@@ -41,7 +41,7 @@ const EventsPage = () => {
 						))}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
