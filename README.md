@@ -1,6 +1,8 @@
 # Event Wave
 
-## This is an application that allows users to search for events in their area. The application utilizes the SeatGeek API to populate the events.
+## This a simple frontend application that allows users to search for events in their area. The app utilizes the SeatGeek API to search a specific area and then displays them to the user.
+
+## This application was primarily built for the final project for ACS 1320, but the next goal was to practice with applying custom shaders using ThreeJS/R3F. Shaders are featured on the home screen and as the background within all routes.
 
 ![Screen shot of Event Wave App](https://i.imgur.com/HntZny3.png)
 ![Screen shot of Event Wave App](https://i.imgur.com/51Foj4N.png)
