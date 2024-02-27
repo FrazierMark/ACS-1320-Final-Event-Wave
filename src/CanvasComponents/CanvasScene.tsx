@@ -27,7 +27,7 @@ const CanvasScene = () => {
 				</Float>
 			</CameraRig>
 
-			{/* <OrbitControls /> */}
+			<OrbitControls />
 			<Lights />
 			<Background />
 		</Canvas>

@@ -5,13 +5,13 @@ interface EventData {
 	datetime_utc: string;
 	type: string;
 	performers: {
-			name: string;
-			image: string;
+		name: string;
+		image: string;
 	}[];
 	venue: {
-			address: string;
-			display_location: string;
-			name: string;
+		address: string;
+		display_location: string;
+		name: string;
 	};
 }
 
@@ -22,8 +22,8 @@ export interface ParsedEvent {
 	pub: string;
 	performer: string;
 	performers: {
-			name: string;
-			image: string;
+		name: string;
+		image: string;
 	}[];
 	performerArray: string[];
 	eventType: string;
@@ -33,41 +33,41 @@ export interface ParsedEvent {
 	address: string;
 }
 
-export const parseData = (responseData: { events: EventData[] }): ParsedEvent[] => {
+export const parseData = (responseData: {
+	events: EventData[];
+}): ParsedEvent[] => {
 	const eventsContext: ParsedEvent[] = [];
-	console.log('responseData: ', responseData);
 	responseData.events.forEach((event) => {
-			const {
-					title,
-					id: seatgeek_id,
-					url,
-					datetime_utc: pub,
-					type: eventType,
-					performers,
-					venue,
-					location,
-					address
-			} = event;
-			const performerArray = performers.map((performer) => performer.name);
-			const context: ParsedEvent = {
-					title,
-					seatgeek_id,
-					url,
-					pub,
-					performer: performers[0].name,
-					performers,
-					performerArray,
-					eventType,
-					image: performers[0].image,
-					venue: venue.name,
-					location: venue.display_location,
-					address: venue.address
-			};
-			eventsContext.push(context);
+		const {
+			title,
+			id: seatgeek_id,
+			url,
+			datetime_utc: pub,
+			type: eventType,
+			performers,
+			venue,
+			location,
+			address,
+		} = event;
+		const performerArray = performers.map((performer) => performer.name);
+		const context: ParsedEvent = {
+			title,
+			seatgeek_id,
+			url,
+			pub,
+			performer: performers[0].name,
+			performers,
+			performerArray,
+			eventType,
+			image: performers[0].image,
+			venue: venue.name,
+			location: venue.display_location,
+			address: venue.address,
+		};
+		eventsContext.push(context);
 	});
 	return eventsContext;
 };
-
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createGoogleEvent = (responseData: any) => {

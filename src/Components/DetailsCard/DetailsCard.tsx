@@ -43,7 +43,6 @@ const DetailsCard = ({
 
 				<h2 className='card-details'>{formatDate(pub)}</h2>
 				<h4 className='card-details'>Venue: {venue}</h4>
-				{/* <h4 className='card-details'>{eventType}</h4> */}
 				<h4 className='card-details'>
 					<a href={`${url}`} target='_blank' rel='noreferrer'>
 						Tickets

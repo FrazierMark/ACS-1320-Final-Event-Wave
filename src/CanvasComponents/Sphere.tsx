@@ -97,7 +97,7 @@ const Sphere = () => {
 				/>
 			</mesh>
 			<Text
-				position={[0, 0, -20]}
+				position={[0, 0, -18]}
 				fontSize={4}
 				color={config.tColor}
 				font={'fonts/EspinosaNovaPro-RotundaBold.otf'}
