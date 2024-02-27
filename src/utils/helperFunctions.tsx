@@ -9,6 +9,8 @@ interface EventData {
 			image: string;
 	}[];
 	venue: {
+			address: string;
+			display_location: string;
 			name: string;
 	};
 }
@@ -27,10 +29,13 @@ export interface ParsedEvent {
 	eventType: string;
 	image: string;
 	venue: string;
+	location: string;
+	address: string;
 }
 
 export const parseData = (responseData: { events: EventData[] }): ParsedEvent[] => {
 	const eventsContext: ParsedEvent[] = [];
+	console.log('responseData: ', responseData);
 	responseData.events.forEach((event) => {
 			const {
 					title,
@@ -40,6 +45,8 @@ export const parseData = (responseData: { events: EventData[] }): ParsedEvent[] 
 					type: eventType,
 					performers,
 					venue,
+					location,
+					address
 			} = event;
 			const performerArray = performers.map((performer) => performer.name);
 			const context: ParsedEvent = {
@@ -53,6 +60,8 @@ export const parseData = (responseData: { events: EventData[] }): ParsedEvent[] 
 					eventType,
 					image: performers[0].image,
 					venue: venue.name,
+					location: venue.display_location,
+					address: venue.address
 			};
 			eventsContext.push(context);
 	});

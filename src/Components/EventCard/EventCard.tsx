@@ -1,5 +1,4 @@
 import './EventCard.css';
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/helperFunctions';
 
@@ -17,12 +16,8 @@ interface EventCardProps {
 const EventCard = ({
 	title,
 	seatgeekId,
-	url,
 	pub,
-	performer,
-	eventType,
 	image,
-	venue,
 }: EventCardProps) => {
 	return (
 		<>

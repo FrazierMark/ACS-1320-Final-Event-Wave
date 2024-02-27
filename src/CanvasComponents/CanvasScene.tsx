@@ -1,15 +1,12 @@
 import { Canvas } from '@react-three/fiber';
-import { Environment, ContactShadows, Float } from '@react-three/drei';
+import { Environment, Float } from '@react-three/drei';
 import Lights from './Lights';
 import CameraRig from './CameraRig';
 import Sphere from './Sphere';
 import { OrbitControls } from '@react-three/drei';
 import { Leva } from 'leva';
 import { Effects } from './Effects';
-import { Stars } from '@react-three/drei';
-import AnimatedStars from './AnimatedStars';
 import Background from './Background';
-import { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 // import { Leva } from 'leva';
 
@@ -30,8 +27,6 @@ const CanvasScene = () => {
 				</Float>
 			</CameraRig>
 
-			{/* <AnimatedStars /> */}
-			{/* <Effects /> */}
 			{/* <OrbitControls /> */}
 			<Lights />
 			<Background />
