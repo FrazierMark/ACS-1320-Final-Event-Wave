@@ -47,9 +47,7 @@ vec2 customFn_Vt3hAuyyBfFT ( vec2 uv, vec2 center, float radialScale, float leng
 // </node_builder>
 
 void main() {
-
-
-	vec4 diffuseColor = vec4(0.81, 0.52, 0.11, 0.87);
+	vec4 diffuseColor = vec4(0.81, 0.22, 0.11, 0.87);
 	
 	nodeVar0 = 0.0;
 	nodeVar1 = ( 4.0 - 10000.0 );

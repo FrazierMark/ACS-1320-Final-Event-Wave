@@ -32,7 +32,7 @@ const CanvasScene = () => {
 
 			{/* <AnimatedStars /> */}
 			{/* <Effects /> */}
-			<OrbitControls />
+			{/* <OrbitControls /> */}
 			<Lights />
 			<Background />
 		</Canvas>

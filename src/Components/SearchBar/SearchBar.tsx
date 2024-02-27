@@ -5,7 +5,7 @@ import { isValidZipCode } from '../../utils/helperFunctions.js';
 import './SearchBar.css';
 
 interface SearchBarProps {
-	position: 'bottom' | 'top'; // Define the valid positions
+	position: 'bottom' | 'top'; // Define valid positions
 }
 
 const SearchBar = ({ position }: SearchBarProps) => {

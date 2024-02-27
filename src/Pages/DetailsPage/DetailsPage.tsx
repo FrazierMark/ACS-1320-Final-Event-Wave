@@ -3,6 +3,8 @@ import { parseData, createGoogleEvent } from '../../utils/helperFunctions';
 import { getEventDetails } from '../../utils/searchApi';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
+import DetailsCard from '../../Components/DetailsCard/DetailsCard';
+import './DetailsPage.css'
 
 const DetailsPage = () => {
 
@@ -24,10 +26,7 @@ const DetailsPage = () => {
 
 
   return (
-      <div className="details-lower-container">
-          <hr className="details-divider-solid" />
-
-
+      <div className="detailsPage-container">
           <SearchBar position={'top'} />
               {parsedData &&
                   parsedData.map((eventGig, idx) => (
