@@ -11,16 +11,22 @@ interface SearchBarProps {
 const SearchBar = ({ position }: SearchBarProps) => {
 	const [zip, setZip] = useState('');
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [radius, setRadius] = useState('50');
+	const [radius, setRadius] = useState('');
 	const navigate = useNavigate();
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onZipChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setZip(value);
 	};
 
+	const onRadiusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setRadius(value);
+	};
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		if (isValidZipCode(zip)) {
 			const responseData = await searchEvents(zip, radius);
 			if (responseData) {
@@ -33,7 +39,7 @@ const SearchBar = ({ position }: SearchBarProps) => {
 		position === 'bottom' ? { bottom: '10%' } : { top: '13%' };
 
 	return (
-		<>
+		<div className='search-bar-container'>
 			<form
 				className='search-bar'
 				style={searchBarStyle}
@@ -44,7 +50,7 @@ const SearchBar = ({ position }: SearchBarProps) => {
 					className='search-query'
 					placeholder='Zip Code'
 					value={zip}
-					onChange={onChange}
+					onChange={onZipChange}
 				/>
 				<button type='submit' className='search-btn'>
 					<svg
@@ -63,10 +69,23 @@ const SearchBar = ({ position }: SearchBarProps) => {
 					</svg>
 				</button>
 			</form>
+			<form
+				className='radius-bar'
+				style={searchBarStyle}
+				onSubmit={handleSubmit}
+			>
+				<input
+					type='text'
+					className='radius-query'
+					placeholder='Radius (mi)'
+					value={radius}
+					onChange={onRadiusChange}
+				/>
+			</form>
 			<div className='alert' id='zip-code-alert'>
 				Please enter a valid zip code.
 			</div>
-		</>
+		</div>
 	);
 };
 
