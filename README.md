@@ -8,10 +8,10 @@
 ![Screen shot of Event Wave App](https://i.imgur.com/51Foj4N.png)
 
 ## Techologies Used
-* JavaScript
+* TypeScript
 * React
-* Vite
 * ThreeJS / React-Three-Fiber
+* Vite
 
 ## Getting Started & Live Link
 * Not live yet
