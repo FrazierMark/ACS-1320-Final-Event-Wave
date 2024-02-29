@@ -14,7 +14,7 @@
 * Vite
 
 ## Getting Started & Live Link
-* Not live yet
+* [Live Link](https://fraziermark.github.io/ACS-1320-Final-Event-Wave/)
  
 #### To run locally, clone the repository and open the project in your editor
 * In the project directory, you can run:
