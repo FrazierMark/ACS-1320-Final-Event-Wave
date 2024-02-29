@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { MeshTransDistortMaterial } from '../Shaders/MeshTransDistortMaterial';
 
 const Sphere = () => {
-	const { nodes } = useGLTF('/glbs/lens-transformed.glb');
+	const { nodes } = useGLTF('/ACS-1320-Final-Event-Wave/glbs/lens-transformed.glb');
 	const object = useRef();
 	const fbo = useFBO(1024);
 	const { viewport } = useThree();
