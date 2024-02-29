@@ -25,7 +25,7 @@ function App() {
 				<Route path='/events' element={<EventsPage />} />
 				<Route path='/events/:seatgeekId' element={<DetailsPage />} />
 			</Routes>
-			<CanvasScene key={location.pathname}  />
+			<CanvasScene key={location.pathname} />
 		</div>
 	);
 }
